@@ -1,4 +1,4 @@
-// for importing png and svg in typescript files
+// for importing files in typescript files
 declare module '*.png'
 declare module '*.svg' {
   const content: string

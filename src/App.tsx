@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import MoviesList from './Container/MoviesList';
+import MoviesList from './container/MoviesList';
 
 const StyledContentWrapper = styled.div`
   display: flex;

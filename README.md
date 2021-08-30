@@ -1,7 +1,7 @@
 ## Install dependencies
 npm install
 
-## Run dev server
+## To Run dev server
 npm start
 
 ## Build

@@ -5,6 +5,7 @@ import Axios from 'axios';
 import styled from 'styled-components';
 import MoviesCard from '../../components/MovieCard';
 import SnackBar from '../../components/SnackBar';
+import Spinner from '../../components/Spinner';
 
 
 const StyledMoviesListWrapper = styled.div`
@@ -21,6 +22,8 @@ const StyledMoviesListWrapper = styled.div`
     }
     .panel-content{
         padding: 10px;
+        box-shadow: 2px 8px 16px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 0 0 10px 10px;
     }
     .overview{
         text-align: justify;
@@ -43,6 +46,14 @@ const StyledMoviesListWrapper = styled.div`
            color: #1D1875;
             transition: .5s;
         }
+    }
+
+    .spinner{
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%);
+        
     }
 `;
 
@@ -75,7 +86,7 @@ const MoviesList = () => {
 
 
 
-
+    // fetch movie data from api
     useEffect(() => {
         fetchData();
     }, [])
@@ -83,22 +94,25 @@ const MoviesList = () => {
 
     return (
         <StyledMoviesListWrapper>
-            <Collapse accordion >
-                {
-                    allMovies.map((movie) => {
-                        return (
-                            <Panel key={movie.id} header={<MoviesCard movieDetail={movie} />}>
-                                <div className="panel-content">
-                                    <p className="overview">{movie.overview}</p>
-                                    <button className="favorite-btn" onClick={() => addToFavorite()}>Add To Favorite</button>
-                                </div>
-                            </Panel>
-                        )
-                    })
-                }
+            {
+                allMovies.length ? (
+                    <Collapse accordion>
+                        {
+                            allMovies.map((movie: any, index) => {
+                                return (
+                                    <Panel key={index} header={<MoviesCard movieDetail={movie} />}>
+                                        <div className="panel-content">
+                                            <p className="overview">{movie.overview}</p>
+                                            <button className="favorite-btn" onClick={() => addToFavorite()}>Add To Favorite</button>
+                                        </div>
+                                    </Panel>
+                                )
+                            })
+                        }
+                    </Collapse>
+                ) : <Spinner />
+            }
 
-
-            </Collapse>
             <SnackBar status={addFavoriteSuccess} />
         </StyledMoviesListWrapper>
     )
